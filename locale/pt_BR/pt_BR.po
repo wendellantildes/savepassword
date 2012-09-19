@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-17 09:16-0300\n"
+"PO-Revision-Date: 2012-08-17 12:16-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: PORTUGUESE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\temp\\ppm\n"
+
+#: C:\temp\ppm/messages.py:23
+msgid "Wrong password"
+msgstr "Senha errada"
+
+#: C:\temp\ppm/messages.py:24
+msgid "Wrong email"
+msgstr "Email errado"
+
+#: C:\temp\ppm/messages.py:25
+msgid "Authenticated"
+msgstr "Logado"
+
+#: C:\temp\ppm/messages.py:27
+msgid "Command not exists"
+msgstr "Comando não existe"
+
+#: C:\temp\ppm/messages.py:28
+msgid "Type your name: "
+msgstr "Digite seu nome:"
+
+#: C:\temp\ppm/messages.py:29
+msgid "Typed name is empty"
+msgstr "Nome digitado está vazio"
+
+#: C:\temp\ppm/messages.py:30
+msgid "Type your email(It will be your login): "
+msgstr "Digite seu email(Ele será o seu login):"
+
+#: C:\temp\ppm/messages.py:31
+msgid "Invalid email"
+msgstr "Email inválido"
+
+#: C:\temp\ppm/messages.py:32
+msgid ""
+"Type your password (Don't forget it because you won't be able to retrieve "
+"it): "
+msgstr "Digite sua senha (Não esquece-a, pois você não poderá recupera-la):"
+
+#: C:\temp\ppm/messages.py:33
+msgid ""
+"Type your password again (Don't forget it because you won't be able to "
+"retrieve it): "
+msgstr ""
+"Digite sua senha novamente (Não esquece-a, pois você não poderá recupera-la):"
+
+#: C:\temp\ppm/messages.py:34
+msgid "Password doesn't match"
+msgstr "Senhas digitadas não são iguais"
+
+#: C:\temp\ppm/messages.py:35
+msgid "Operation aborted"
+msgstr "Operação abortada"
+
+#: C:\temp\ppm/messages.py:36
+msgid "User added"
+msgstr "Usuário adicionado"
+
+#: C:\temp\ppm/messages.py:37
+msgid "Type your email"
+msgstr "Digite seu email:"
+
+#: C:\temp\ppm/messages.py:38
+msgid "Type your password"
+msgstr "Digite sua senha:"
+
+#~ msgid ""
+#~ "Type your name(Don't forget it because you won't be able to retrieve it): "
+#~ msgstr ""
+#~ "Digite sua senha novamente(Não esquece-a, pois você não poderá recupera-"
+#~ "la):"
+
+#~ msgid "Email errado"
+#~ msgstr "Wrong email"
+
+#~ msgid "Senha errada"
+#~ msgstr "Wrong password"

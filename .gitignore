@@ -1,5 +1,5 @@
 *.py[co]
-
+*.py~
 # Packages
 *.egg
 *.egg-info
@@ -25,3 +25,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#Mac
+.DS_Store
+
+#Sqlite
+*.sqlite
