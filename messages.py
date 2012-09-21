@@ -108,9 +108,11 @@ prompt_command_help_update_name = _("--Type 'update name' to update the user's n
 prompt_command_help_update_email = _("--Type 'update email' to update the user's email. **Login is required ")
 prompt_command_help_update_password = _("--Type 'update password' to update user's password. **Login is required ")
 prompt_command_help_login = _("--Type 'login' to login")
-prompt_command_help_logout = _("--Type 'logout' logout")
+prompt_command_help_logout = _("--Type 'logout' to logout")
 prompt_command_help_add_account = _("--Type 'add account' to add a new account. **Login is required")
 prompt_command_help_update_account = _("--Type 'update account' to update an account. **Login is required")
 prompt_command_help_delete_account = _("--Type 'delete account' to delete an account. **Login is required")
-prompt_command_help_list_accounts = _("--Type 'list accounts {number]' to show the user's accounts. The number is optional and it tells how many accounts are going to show at a time. The default number is 2.\n Example: 'list accounts' or list accounts 3. **Login is required")
+prompt_command_help_list_accounts = _("--Type 'list accounts {number}' to show the user's accounts. The number is optional and it tells how many accounts are going to show at a time. The default number is 2.\n Example: 'list accounts' or list accounts 3. **Login is required")
 prompt_command_help_find_account = _("--Type 'find accounts' to search accounts. **Login is required")
+
+head = _("Portable Save Passwords \n --Type 'help' to see the commands")

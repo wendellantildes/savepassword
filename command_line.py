@@ -52,6 +52,7 @@ class Prompt(object):
         self.logged = False
         self.command = self.Command()
         self.create_options()		
+        print messages.head
         
     def create_options(self):
         self.command.add_exit(self.exit)
@@ -71,7 +72,8 @@ class Prompt(object):
     def prompt(self):
         while(True):
             try:
-                input = raw_input(self.label)
+                label_now =  "[{date}]{label}".format(date=datetime.now().strftime("%d/%m/%y %H:%M"),label=self.label)
+                input = raw_input(label_now)
                 self.operation(input)
             except KeyboardInterrupt:
                 print
@@ -456,7 +458,7 @@ class Prompt(object):
             print self.authenticationService.message_error
             
     def update_authentication_label(self,email):
-        self.label = "[{date}]{email}{label}".format(date=datetime.now().strftime("%d/%m/%y %H:%M"),email=email,label=">>>")
+        self.label = "{email}{label}".format(email=email,label=">>>")
 
     def help_command(self):
         print messages.prompt_command_help_cancel 

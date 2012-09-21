@@ -144,7 +144,7 @@ class AccountService:
 
     def update(self,name,title,login,password,site,description,user_password,account):
         if name is not None:
-            account.name = security.ecrypt(user_password,name)
+            account.name = security.encrypt(user_password,name)
         if title is not None:
             account.title = security.encrypt(user_password,title)
         if login is not None:
@@ -166,6 +166,7 @@ class AuthenticationService:
         self.time_login    = None
         self.logged        = False
         self.typed_password =  None
+        self.time_session = 3
     
     #TODO: verificar esse password guardado aqui	
     def authenticate(self,email,password):
@@ -193,14 +194,14 @@ class AuthenticationService:
         self = AuthenticationService()
     
     def session_is_expired(self):
-        if datetime.now()-timedelta(minutes=1) >= self.time_login:
+        if datetime.now()-timedelta(minutes=self.time_session) >= self.time_login:
             return True
         else:
             return False
             
     def info_session(self):
         begin = self.time_login
-        end   = self.time_login + timedelta(minutes=3)
+        end   = self.time_login + timedelta(minutes=self.time_session)
         return (begin,end)
         
         
