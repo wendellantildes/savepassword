@@ -13,6 +13,7 @@ from datetime import datetime,timedelta
 
 security = Security()
 metadata.bind = 'sqlite:///accounts.sqlite'
+metadata.bind.encoding = 'utf8'
 setup_all()
 create_all()
 commit = session.commit
