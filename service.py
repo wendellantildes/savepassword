@@ -14,6 +14,7 @@ from datetime import datetime,timedelta
 security = Security()
 metadata.bind = 'sqlite:///accounts.sqlite'
 metadata.bind.encoding = 'utf8'
+metadata.bind.echo = False
 setup_all()
 create_all()
 commit = session.commit
@@ -21,7 +22,7 @@ commit = session.commit
 class UserService:
     
     def add(self,name,email,password):
-        user = User(name=name.encode("utf-8"),email=email.encode("utf-8"),password=security.password_hash(password).encode("utf-8"))
+        user = User(name=name,email=email.encode("utf-8"),password=security.password_hash(password).encode("utf-8"))
         commit()
             
     def get_user(self,email):
@@ -50,15 +51,15 @@ class UserService:
 
             description = security.decrypt(old_password,account.description)
             account.description = security.encrypt(new_password,description)
-        user.password = security.password_hash(new_password).encode("utf-8")
+        user.password = security.password_hash(new_password)
         commit()
     
     def update_login(self,user,email):
-        user.email = email.encode("utf-8")
+        user.email = email
         commit()
 
     def update_name(self,user,name):
-        user.name = name.encode("utf-8")
+        user.name = name
         commit()
 
 class AccountService:

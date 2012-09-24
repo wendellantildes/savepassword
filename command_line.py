@@ -17,6 +17,9 @@ from argparse import ArgumentParser
 
 security = Security()
 
+def raw_input_unicode(message):
+    return unicode(raw_input(message),'utf8')
+
 class verify_session(object):
     def __init__(self,f):
         self.f = f
@@ -105,25 +108,9 @@ class Prompt(object):
         valid          = False
         userService = UserService()
         email = self.type_user_email(userService)
-        #password, password_again = ("","")
         password = self.type_user_password(prompt_command_password,prompt_command_password_again)
-        #count = 0
-        #valid = False
-        #while(not valid):
-        #    password       = getpass.getpass(prompt_command_password)
-        #    password_again = getpass.getpass(prompt_command_password_again)
-        #    if(password != password_again):
-        #        count +=1
-        #        if(count == 3):
-        #            print prompt_command_operation_aborted
-        #            return
-        #        print prompt_command_password_error
-        #    else:
-        #       if not validate.password(password):
-        #            print prompt_command_password_error_empty
-        #        else:
-        #            valid = True
         try:
+            print type(password)
             userService.add(name=name,email=email,password=password)
             print prompt_command_user_added
         except IntegrityError:
@@ -134,18 +121,18 @@ class Prompt(object):
         name = ""
         valid = False
         while(not valid):
-            name = raw_input(prompt_command_name)
+            name = raw_input_unicode(prompt_command_name)
             if not validate.name(name):
                 print prompt_command_name_error
             else:
                 valid = True
-        return unicode(name,'utf8')
+        return name
 
     def type_user_email(self,userService):
         valid = False
         email = ""
         while(not valid):
-            email = raw_input(prompt_command_email)
+            email = raw_input_unicode(prompt_command_email)
             if not validate.email(email):
                 print prompt_command_email_error
             else:
@@ -153,15 +140,15 @@ class Prompt(object):
                     valid = True
                 else:
                     print prompt_command_email_duplicated
-        return unicode(email,'utf8')
+        return email
 
     def type_user_password(self,password_message,password_message_again):
         password, password_again = "",""
         count = 0
         valid = False
         while(not valid):
-            password       = getpass.getpass(password_message)
-            password_again = getpass.getpass(password_message_again)
+            password       = unicode(getpass.getpass(password_message),'utf8')
+            password_again = unicode(getpass.getpass(password_message_again),'utf8')
             if(password != password_again):
                 count +=1
                 if(count == 3):
@@ -173,7 +160,7 @@ class Prompt(object):
                     print prompt_command_password_error_empty
                 else:
                     valid = True
-        return unicode(password,'utf8')
+        return password
 
     @login_required
     def add_account(self):
@@ -181,7 +168,7 @@ class Prompt(object):
         name = ""
         valid = False
         while(not valid):
-            name = raw_input(prompt_command_account_name)
+            name = raw_input_unicode(prompt_command_account_name)
             if not validate.name(name):
                 print prompt_command_name_error
             else:
@@ -193,7 +180,7 @@ class Prompt(object):
         valid = False
         title = ""
         while(not valid):
-            title = raw_input(prompt_command_account_title)
+            title = raw_input_unicode(prompt_command_account_title)
             if not validate.name(title):
                 print prompt_command_account_title_error
             else:
@@ -201,7 +188,7 @@ class Prompt(object):
         valid          = False
         login          = ""
         while(not valid):
-            login = raw_input(prompt_command_account_login)
+            login = raw_input_unicode(prompt_command_account_login)
             if not validate.name(login):
                 print prompt_command_account_login_error
             else:
@@ -209,13 +196,13 @@ class Prompt(object):
         password = ("")
         valid    = False
         while(not valid):
-            password       = raw_input(prompt_command_account_password)
+            password       = raw_input_unicode(prompt_command_account_password)
             if not validate.name(password):
                 print prompt_command_account_password_error
             else:
                 valid = True
-        site = raw_input(prompt_command_account_site)
-        description = raw_input(prompt_command_account_description)
+        site = raw_input_unicode(prompt_command_account_site)
+        description = raw_input_unicode(prompt_command_account_description)
         accountService.add(name,title,login,password,site,description,self.authenticationService.typed_password,self.authenticationService.user)
         print prompt_command_account_added
         
@@ -261,7 +248,7 @@ class Prompt(object):
             if count > display_quantity:
                 count = 0
                 print 
-                raw_input(prompt_command_more)
+                raw_input_unicode(prompt_command_more)
             self.print_account(key,account)
             print "#"
     
@@ -272,7 +259,7 @@ class Prompt(object):
         key = self.authenticationService.typed_password
         found_accounts = None
         if len(kargs)==0:
-            word = raw_input(prompt_command_find_accounts_search)
+            word = raw_input_unicode(prompt_command_find_accounts_search)
             found_accounts = accountService.find_account(user_password=key,default=word,user=self.authenticationService.user)
         else:
             name  = None
@@ -300,13 +287,13 @@ class Prompt(object):
             if count > display_quantity:
                 count = 0
                 print 
-                raw_input(prompt_command_more)
+                raw_input_unicode(prompt_command_more)
             self.print_account(key,account)
             print "#"
     
     @login_required
     def delete_account(self):
-        name = raw_input(prompt_command_delete_account_name)
+        name = raw_input_unicode(prompt_command_delete_account_name)
         accountService = AccountService()
         key = self.authenticationService.typed_password
         account = accountService.get_account(user_password=key,name=name,user=self.authenticationService.user)
@@ -316,7 +303,7 @@ class Prompt(object):
             self.print_account(key,account)
             print
             while True:
-                confirm = raw_input(prompt_command_delete_account_confirm)
+                confirm = raw_input_unicode(prompt_command_delete_account_confirm)
                 if confirm in ["y","n"]:
                     if validate.yes(confirm):
                         accountService.delete_account(account)
@@ -329,7 +316,7 @@ class Prompt(object):
         
     @login_required    
     def update_account(self):
-        name = raw_input(prompt_command_update_account)
+        name = raw_input_unicode(prompt_command_update_account)
         accountService = AccountService()
         key = self.authenticationService.typed_password
         account = accountService.get_account(user_password=key,name=name,user=self.authenticationService.user)
@@ -339,19 +326,19 @@ class Prompt(object):
             self.print_account(key,account)
             print
             while True:
-                confirm = raw_input(prompt_command_update_account_confirm)
+                confirm = raw_input_unicode(prompt_command_update_account_confirm)
                 if confirm in ["y","n"]:
                     if validate.yes(confirm):
                         key = self.authenticationService.typed_password
                         valid = False
                         name = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_name)
+                            confirm = raw_input_unicode(prompt_command_update_account_name)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.name)
                                     while(not valid):
-                                        name = raw_input(prompt_command_account_name)
+                                        name = raw_input_unicode(prompt_command_account_name)
                                         if not validate.name(name):
                                             print prompt_command_name_error
                                         else:
@@ -364,12 +351,12 @@ class Prompt(object):
                         valid = False
                         title = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_title)
+                            confirm = raw_input_unicode(prompt_command_update_account_title)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.title) 
                                     while(not valid):
-                                        title = raw_input(prompt_command_update_account_new_text)
+                                        title = raw_input_unicode(prompt_command_update_account_new_text)
                                         if not validate.name(title):
                                             print prompt_command_account_title_error
                                         else:
@@ -380,12 +367,12 @@ class Prompt(object):
                         valid = False
                         login = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_login)
+                            confirm = raw_input_unicode(prompt_command_update_account_login)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.login) 
                                     while(not valid):
-                                        login = raw_input(prompt_command_update_account_new_text)
+                                        login = raw_input_unicode(prompt_command_update_account_new_text)
                                         if not validate.name(login):
                                             print prompt_command_account_title_error
                                         else:
@@ -395,12 +382,12 @@ class Prompt(object):
                         valid = False
                         password = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_password)
+                            confirm = raw_input_unicode(prompt_command_update_account_password)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.password) 
                                     while(not valid):
-                                        password = raw_input(prompt_command_update_account_new_text)
+                                        password = raw_input_unicode(prompt_command_update_account_new_text)
                                         if not validate.name(password):
                                             print prompt_command_account_title_error
                                         else:
@@ -409,20 +396,20 @@ class Prompt(object):
 
                         site  = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_site)
+                            confirm = raw_input_unicode(prompt_command_update_account_site)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.site) 
-                                    site = raw_input(prompt_command_update_account_new_text)
+                                    site = raw_input_unicode(prompt_command_update_account_new_text)
                                 break
 
                         description = None
                         while True:
-                            confirm = raw_input(prompt_command_update_account_description)
+                            confirm = raw_input_unicode(prompt_command_update_account_description)
                             if confirm in ["y","n"]:
                                 if validate.yes(confirm):
                                     print prompt_command_update_account_original_text,security.decrypt(key,account.description) 
-                                    description = raw_input(prompt_command_update_account_new_text)
+                                    description = raw_input_unicode(prompt_command_update_account_new_text)
                                 break
                         accountService.update(name=name,title=title,login=login,password=password,site=site,description=description,user_password=key,account=account)
                         print prompt_command_update_account_updated
@@ -445,7 +432,7 @@ class Prompt(object):
     
     def login(self):
         security = Security()
-        email     = raw_input(prompt_command_login_email )
+        email     = raw_input_unicode(prompt_command_login_email)
         password  = getpass.getpass(prompt_command_login_password)
         if self.authenticationService.authenticate(email=email,password=password):
             print authentication_authenticated
