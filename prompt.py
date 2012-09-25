@@ -1,3 +1,4 @@
+from command import *
 
 def raw_input_unicode(message):
     return unicode(raw_input(message),'utf8')
@@ -41,6 +42,9 @@ class Prompt(object):
             return raw_input(label_now)
         except KeyboardInterrupt:
             print
+            
+    def print_command_not_error(self):
+        print prompt_command_error
 
 class PromptManager(object):
     
@@ -48,10 +52,34 @@ class PromptManager(object):
         self.prompt = Prompt()
         self.authenticationService = AuthenticationService()
         self.logged = False
-        self.command = self.Command()
+        self.invoker = self.buildInvoker()
+        self.options = {}
+        self.functions = {}
     
+    def buildInvoker(self):
+        invokerMaker = InvokerMarker()
+        addUserCommand = AddUserCommand(self.prompt)
+        invokerMaker.registerAddUserCommand(addUserCommand)
+        return invokerMaker.buildInvoker()
+    
+    def build_options(self):
+        self.options["add_user"] = re.compile(r'add(\s)user(\s)*$')
+        self.functions["add_user"] = self.add_user
+    
+    def add_user(self):
+        self.invoker.add_user()
+        
     def run(self):
         while(True):
             typed_line = self.prompt()
-            if len(input.strip()) > 0:
-                self.operation(typed_line)     
+            if len(typed_line.strip()) > 0:
+                self.operation(typed_line)
+                
+    def operation(self,typed_line):
+        exists = False
+            for key in self.options.keys():
+                match = self.options[key].match(typed_line)
+                if match:
+                    self.functions[key]()
+            if not exists:
+                self.prompt.print_command_not_error
