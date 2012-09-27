@@ -51,16 +51,19 @@ class Prompt(object):
     def update_authentication_label(self,email):
         self.label = "{email}{label}".format(email=email,label=">>>")
     
-    def type_user_name(self):
+    def type_name(self,message,message_error):
         name = ""
         valid = False
         while(not valid):
-            name = raw_input_unicode(prompt_command_name)
+            name = self.type_words(message)
             if not validate.name(name):
-                print prompt_command_name_error
+                print message_error
             else:
                 valid = True
         return name
+
+    def type_words(self,message):
+        return raw_input_unicode(message)
 
     def type_user_email(self,userService):
         valid = False
@@ -102,9 +105,23 @@ class Prompt(object):
     def type_password(self):
         return getpass.getpass(prompt_command_login_password)
         
-
     def print_message(self,message):
         print message
+
+    def print_account(self,key,account):
+        print prompt_command_list_accounts_id, account.id
+        print prompt_command_list_accounts_name, security.decrypt(key,account.name)
+        print prompt_command_list_accounts_title,security.decrypt(key,account.title)
+        print prompt_command_list_accounts_login, security.decrypt(key,account.login)
+        print prompt_command_list_accounts_password, security.decrypt(key,account.password)
+        print prompt_command_list_accounts_site, security.decrypt(key,account.site)
+        print prompt_command_list_accounts_description, security.decrypt(key,account.description)		
+
+    def confirm(self,message):
+       while True:
+           confirm = raw_input_unicode(message)
+           if confirm in ["y","n"]:
+               return validate.yes(confirm)
 
 class PromptManager(object):
     
@@ -121,12 +138,24 @@ class PromptManager(object):
         invokerMaker = InvokerMaker()
         addUserCommand = AddUserCommand(self.prompt)
         updateUserPasswordCommand = UpdateUserPasswordCommand(self.prompt,self.authenticationService)
-        invokerMaker.registerAddUserCommand(addUserCommand).registerUpdateUserPasswordCommand(updateUserPasswordCommand)
+        updateUserNameCommand = UpdateUserNameCommand(self.prompt,self.authenticationService)
+        updateUserEmailCommand = UpdateUserEmailCommand(self.prompt,self.authenticationService)
+        invokerMaker.registerAddUserCommand(addUserCommand).registerUpdateUserPasswordCommand(updateUserPasswordCommand).registerUpdateUserNameCommand(updateUserNameCommand).registerUpdateUserEmailCommand(updateUserEmailCommand)
 
         loginCommand = LoginCommand(self.prompt,self.authenticationService)
         logoutCommand = LogoutCommand(self.prompt,self.authenticationService)
         exitCommand = ExitCommand(self.prompt,self.authenticationService)
         invokerMaker.registerExitCommand(exitCommand).registerLoginCommand(loginCommand).registerLogoutCommand(logoutCommand)
+
+        addAccountCommand = AddAccountCommand(self.prompt,self.authenticationService)
+        deleteAccountCommand = DeleteAccountCommand(self.prompt,self.authenticationService)
+        updateAccountCommand = UpdateAccountCommand(self.prompt,self.authenticationService)
+        findAccountCommand = FindAccountCommand(self.prompt,self.authenticationService)
+        listAccountsCommand = ListAccountsCommand(self.prompt,self.authenticationService)
+        invokerMaker.registerAddAccountCommand(addAccountCommand).registerDeleteAccountCommand(deleteAccountCommand).registerUpdateAccountCommand(updateAccountCommand).registerFindAccountCommand(findAccountCommand).registerListAccountsCommand(listAccountsCommand)
+
+        helpCommand = HelpCommand(self.prompt)
+        invokerMaker.registerHelpCommand(helpCommand)
        
         return invokerMaker.buildInvoker()
     
@@ -136,6 +165,12 @@ class PromptManager(object):
 
         self.options["add_update_user_password"] = re.compile(r'update(\s)password(\s)*$')
         self.functions["add_update_user_password"] = self.update_user_password
+        self.options["add_update_user_name"] = re.compile(r'update(\s)name(\s)*$')
+        self.functions["add_update_user_name"] = self.update_user_name
+
+        self.options["add_update_user_email"] = re.compile(r'update(\s)email(\s)*$')
+        self.functions["add_update_user_email"] = self.update_user_email
+
 
         self.options["exit"] = re.compile(r'exit(\s)*$')
         self.functions["exit"] = self.exit
@@ -148,7 +183,24 @@ class PromptManager(object):
         self.options["logout"] = re.compile(r'logout(\s)*$')
         self.functions["logout"] = self.logout
 
+        self.options["add_account"] = re.compile(r'add(\s)account(\s)*$')
+        self.functions["add_account"] = self.add_account
+            
+        self.options["list_accounts"] = re.compile(r'(list)\s(accounts)\s*$')
+        self.functions["list_accounts"] = self.list_accounts
+            
+        self.options["find_account"] = re.compile(r'(find)\s+(accounts)(?P<arguments>\s*)$')
+        self.functions["find_account"] = self.find_account
+            
+        self.options["delete_account"]  = re.compile(r'delete(\s)+account(\s)*$')
+        self.functions["delete_account"] = self.delete_account
+            
+        self.options["update_account"] = re.compile(r'update(\s)+account(\s)*$')
+        self.functions["update_account"] = self.update_account
         
+        self.options["help"] = re.compile(r'help(\s)*$')
+        self.functions["help"] = self.help_
+
     
     def add_user(self):
         self.invoker.add_user()
@@ -156,6 +208,14 @@ class PromptManager(object):
     @login_required
     def update_user_password(self):
         self.invoker.update_user_password()
+
+    @login_required
+    def update_user_name(self):
+        self.invoker.update_user_name()
+
+    @login_required
+    def update_user_email(self):
+        self.invoker.update_user_email()
 
     def login(self):
         self.invoker.login()
@@ -166,7 +226,30 @@ class PromptManager(object):
 
     def exit(self):
         self.invoker.exit()
+
+    @login_required
+    def add_account(self):
+        self.invoker.add_account()
         
+    @login_required
+    def delete_account(self):
+        self.invoker.delete_account()
+        
+    @login_required
+    def update_account(self):
+        self.invoker.update_account()
+        
+    @login_required
+    def find_account(self):
+        self.invoker.find_account()
+        
+    @login_required
+    def list_accounts(self):
+        self.invoker.list_accounts()
+        
+    def help_(self):
+        self.invoker.help_()
+
     def run(self):
         while(True):
             try:

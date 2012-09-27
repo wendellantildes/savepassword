@@ -193,7 +193,12 @@ class AuthenticationService:
         return security.password_matches(password,self.user.password) 
         
     def logout(self):
-        self = AuthenticationService()
+        self.user = None
+        self.message_error = None
+        self.time_login    = None
+        self.logged        = False
+        self.typed_password =  None
+
     
     def session_is_expired(self):
         if datetime.now()-timedelta(minutes=self.time_session) >= self.time_login:
