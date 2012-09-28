@@ -4,21 +4,16 @@ import platform
 
 
 so = platform.system()
-language = "pt_br"
+language = locale.getdefaultlocale()[0]
+locale.setlocale(locale.LC_ALL, '')
 _ = gettext.gettext
-if(language == "pt_br"):
+
+if(language == "pt_BR"):
     PT_BR = gettext.translation('app', './locale', languages=['pt_BR'])
     PT_BR.install()
     if(so == "Windows"):
         PT_BR.set_output_charset('cp850')
     _ = PT_BR.gettext
-else:
-    locale.setlocale(locale.LC_ALL, '')
-    if(so == "Windows"):
-        gettext.bindtextdomain('app', ['./locale','cp850'])
-    else:
-        gettext.bindtextdomain('app', './locale')
-    gettext.textdomain('app')
 
 authentication_password_error  = _("Wrong password")
 authentication_email_error     = _("Email not exist")
