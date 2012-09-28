@@ -1,6 +1,6 @@
 savepassword
 ============
-#In order to execute
+#In order to run
 -python command_line.py
 #Dependencies:
 -pycrypto
