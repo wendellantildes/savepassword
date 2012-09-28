@@ -54,7 +54,7 @@ class UserService:
         user.password = security.password_hash(new_password)
         commit()
     
-    def update_login(self,user,email):
+    def update_email(self,user,email):
         user.email = email
         commit()
 

@@ -5,7 +5,7 @@ import sys
 
 class Invoker(object):
     
-    def __init__(self,addUserCommand,updateUserPasswordCommand,updateUserNameCommand,updateUserEmailCommand,loginCommand,logoutCommand,exitCommand,addAccountCommand,deleteAccountCommand,updateAccountCommand,findAccountCommand,listAccountsCommand,helpCommand):
+    def __init__(self,addUserCommand,updateUserPasswordCommand,updateUserNameCommand,updateUserEmailCommand,loginCommand,logoutCommand,exitCommand,addAccountCommand,deleteAccountCommand,updateAccountCommand,findAccountsCommand,listAccountsCommand,helpCommand):
         self.addUserCommand = addUserCommand
         self.updateUserPasswordCommand = updateUserPasswordCommand
         self.updateUserNameCommand = updateUserNameCommand
@@ -18,7 +18,7 @@ class Invoker(object):
         self.addAccountCommand = addAccountCommand
         self.deleteAccountCommand = deleteAccountCommand
         self.updateAccountCommand = updateAccountCommand
-        self.findAccountCommand = findAccountCommand
+        self.findAccountsCommand = findAccountsCommand
         self.listAccountsCommand = listAccountsCommand
 
         self.helpCommand = helpCommand
@@ -44,19 +44,19 @@ class Invoker(object):
     def exit(self):
         self.exitCommand.execute()
         
-    def addAccount(self):
+    def add_account(self):
         self.addAccountCommand.execute()
 
-    def deleteAccount(self):
+    def delete_account(self):
         self.deleteAccountCommand.execute()
 
-    def updateAccount(self):
+    def update_account(self):
         self.updateAccountCommand.execute()
 
-    def findAccount(self):
-        self.findAccountCommand.execute()
+    def find_accounts(self):
+        self.findAccountsCommand.execute()
 
-    def listAccounts(self):
+    def list_accounts(self):
         self.listAccountsCommand.execute()
 
     def help_(self):
@@ -75,7 +75,7 @@ class InvokerMaker(object):
         self.addAccountCommand = None
         self.deleteAccountCommand = None
         self.updateAccountCommand = None
-        self.findAccountCommand = None
+        self.findAccountsCommand = None
         self.listAccountsCommand = None
         self.helpCommand = None
         
@@ -119,8 +119,8 @@ class InvokerMaker(object):
         self.updateAccountCommand = command
         return self
 
-    def registerFindAccountCommand(self,command):
-        self.findAccountCommand = command
+    def registerFindAccountsCommand(self,command):
+        self.findAccountsCommand = command
         return self
 
     def registerListAccountsCommand(self,command):
@@ -132,7 +132,7 @@ class InvokerMaker(object):
         return self
 
     def buildInvoker(self):
-        return Invoker(self.addUserCommand,self.updateUserPasswordCommand,self.updateUserNameCommand,self.updateUserEmailCommand,self.loginCommand,self.logoutCommand,self.exitCommand,self.addAccountCommand,self.deleteAccountCommand,self.updateAccountCommand,self.findAccountCommand,self.listAccountsCommand,self.helpCommand)
+        return Invoker(self.addUserCommand,self.updateUserPasswordCommand,self.updateUserNameCommand,self.updateUserEmailCommand,self.loginCommand,self.logoutCommand,self.exitCommand,self.addAccountCommand,self.deleteAccountCommand,self.updateAccountCommand,self.findAccountsCommand,self.listAccountsCommand,self.helpCommand)
     
     
 class Command(object):
@@ -156,7 +156,7 @@ class AddUserCommand(Command):
         name = self.prompt.type_name(prompt_command_name,prompt_command_name_error)
         valid          = False
         userService = UserService()
-        email = self.prompt.type_user_email(userService)
+        email = self.prompt.type_user_email(userService,prompt_command_email)
         password = self.prompt.type_user_password(prompt_command_password,prompt_command_password_again)
         try:
             userService.add(name=name,email=email,password=password)
@@ -167,9 +167,9 @@ class AddUserCommand(Command):
 
 class UpdateUserPasswordCommand(Command):
 
-    def __init__(self,prompt,authentication):
+    def __init__(self,prompt,authenticationService):
         self.prompt = prompt
-        self.authentication = authentication
+        self.authenticationService = authenticationService
 
     def execute(self):
         self.update_password()
@@ -182,7 +182,7 @@ class UpdateUserPasswordCommand(Command):
         if self.authenticationService.password_is_right(old_password):
             userService.update_password(user=user,old_password=old_password,new_password=new_password)
             self.authenticationService.typed_password = new_password
-            self.prompt_print_message(prompt_command_update_user_password_updated)
+            self.prompt.print_message(prompt_command_update_user_password_updated)
         else:
             self.prompt.print_message(authentication_password_error)
 
@@ -194,8 +194,8 @@ class UpdateUserEmailCommand(object):
 
     def execute(self):
         userService = UserService()
-        email = self.prompt.type_user_email(userService)
-        user = self.prompt.authenticationService.user 
+        email = self.prompt.type_user_email(userService,prompt_command_update_user_type_email)
+        user = self.authenticationService.user 
         userService.update_email(user=user,email=email)
         self.prompt.update_authentication_label(email)
         self.prompt.print_message(prompt_command_update_user_email_updated)
@@ -283,6 +283,7 @@ class AddAccountCommand(object):
         site = self.prompt.type_words(prompt_command_account_site)
         description = self.prompt.type_words(prompt_command_account_description)
         accountService.add(name,title,login,password,site,description,self.authenticationService.typed_password,self.authenticationService.user)
+        self.prompt.print_message(prompt_command_account_added)
 
 class DeleteAccountCommand(object):
 
@@ -300,7 +301,7 @@ class DeleteAccountCommand(object):
             self.prompt.print_message(prompt_command_delete_account_view)
             self.prompt.print_account(key,account)
             self.prompt.print_message("")
-            if self.prompt.confirm("prompt_command_delete_account_confirm"):
+            if self.prompt.confirm(prompt_command_delete_account_confirm):
                 accountService.delete_account(account)
                 self.prompt.print_message(prompt_command_delete_account_deleted)
             else:
@@ -315,7 +316,7 @@ class UpdateAccountCommand(object):
         self.authenticationService = authenticationService
 
     def execute(self):
-        name = self.type_words(prompt_command_update_account)
+        name = self.prompt.type_words(prompt_command_update_account)
         accountService = AccountService()
         key = self.authenticationService.typed_password
         account = accountService.get_account(user_password=key,name=name,user=self.authenticationService.user)
@@ -372,7 +373,7 @@ class UpdateAccountCommand(object):
         else:
             self.prompt.print_message(prompt_command_update_account_not_found)
 
-class FindAccountCommand(object):
+class FindAccountsCommand(object):
 
     def __init__(self,prompt,authenticationService):
         self.prompt = prompt
@@ -409,14 +410,17 @@ class ListAccountsCommand(object):
         count = 0
         key = self.authenticationService.typed_password 
         display_quantity = 3
-        for account in accounts:
-            count +=1
-            if count > display_quantity:
-                count = 0
-                print 
-                self.prompt.type_words(prompt_command_more)
-            self.prompt.print_account(key,account)
-            self.prompt.print_message("#")
+        if len(accounts) == 0:
+            self.prompt.print_message(prompt_command_list_accounts_no_account)  
+        else:
+            for account in accounts:
+                count +=1
+                if count > display_quantity:
+                    count = 0
+                    self.prompt.print_message("")
+                    self.prompt.type_words(prompt_command_more)
+                self.prompt.print_account(key,account)
+                self.prompt.print_message("#")
 
 class HelpCommand(object):
 

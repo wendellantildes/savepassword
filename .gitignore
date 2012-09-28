@@ -34,3 +34,6 @@ pip-log.txt
 
 #VIM
 *.swp
+
+#Script
+*.sh

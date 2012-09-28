@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-21 10:52-0300\n"
-"PO-Revision-Date: 2012-09-21 10:55-0300\n"
+"POT-Creation-Date: 2012-09-28 10:37-0300\n"
+"PO-Revision-Date: 2012-09-28 10:38-0300\n"
 "Last-Translator: Wendell Antildes <wendellantildes@gmail.com>\n"
 "Language-Team: \n"
 "Language: PORTUGUESE\n"
@@ -55,7 +55,7 @@ msgstr "Comando não exite. -- Digite 'help' para ver os comandos"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:33
 msgid "Type your name: "
-msgstr "Digite seu nome:"
+msgstr "Digite seu nome: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:34
 msgid "Typed name is empty"
@@ -63,7 +63,7 @@ msgstr "Nome digitado está vazio"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:35
 msgid "Type your email(It will be your login): "
-msgstr "Digite seu email(Ele será o seu login):"
+msgstr "Digite seu email(Ele será o seu login): "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:36
 msgid "Invalid email"
@@ -75,7 +75,7 @@ msgstr "Email já existe"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:38
 msgid "Type your password (Don't forget it because you won't be able to retrieve it): "
-msgstr "Digite sua senha (Não esquece-a, pois você não poderá recupera-la):"
+msgstr "Digite sua senha (Não esquece-a, pois você não poderá recupera-la): "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:39
 msgid "Password empty"
@@ -83,7 +83,7 @@ msgstr "Senha vazia"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:40
 msgid "Type your password again (Don't forget it because you won't be able to retrieve it): "
-msgstr "Digite sua senha novamente (Não esquece-a, pois você não poderá recupera-la):"
+msgstr "Digite sua senha novamente (Não esquece-a, pois você não poderá recupera-la): "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:41
 msgid "Password doesn't match"
@@ -99,7 +99,7 @@ msgstr "Usuário adicionado"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:45
 msgid "Type your email"
-msgstr "Digite seu email:"
+msgstr "Digite seu email: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:46
 msgid "Type your password"
@@ -139,7 +139,7 @@ msgstr "Login digitado está vazio "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:57
 msgid "Type the account password: "
-msgstr "Digite a senha da conta:"
+msgstr "Digite a senha da conta: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:58
 msgid "Typed password is empty"
@@ -147,11 +147,11 @@ msgstr "Senha digitada está vazia"
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:59
 msgid "Type the account site (optional): "
-msgstr "Digite o site da conta (opcional):"
+msgstr "Digite o site da conta (opcional): "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:60
 msgid "Type the account description (optional): "
-msgstr "Digite a descrição da conta (opcional):"
+msgstr "Digite a descrição da conta (opcional): "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:61
 msgid "Account added"
@@ -163,196 +163,219 @@ msgstr "mais..."
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:66
 msgid "id: "
-msgstr "id:"
+msgstr "id: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:67
 msgid "Name: "
-msgstr "Nome:"
+msgstr "Nome: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:68
 msgid "Title: "
-msgstr "Título:"
+msgstr "Título: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:69
 msgid "Login: "
-msgstr "Login:"
+msgstr "Login: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:70
 msgid "Password: "
-msgstr "Senha:"
+msgstr "Senha: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:71
 msgid "Site: "
-msgstr "Site:"
+msgstr "Site: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:72
 msgid "Description: "
-msgstr "Descrição:"
+msgstr "Descrição: "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:74
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:73
+msgid "You have no account"
+msgstr "Você não tem alguma conta"
+
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:75
 msgid "Search for: "
-msgstr "Procurar por:"
+msgstr "Procurar por: "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:76
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:77
 msgid "Type the account name you want to delete: "
 msgstr "Digite o nome da conta que você quer remover: "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:77
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:78
 msgid "***THIS ACCOUNT WILL BE DELETED***"
 msgstr "***ESTA CONTA SERÁ REMOVIDA***"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:78
-msgid "Are you sure you want to delete this account? (type 'y' for yes and 'n' for no): "
-msgstr "Você tem certeza que quer remover está conta? (digite 'y' para sim e 'n' para não):"
-
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:79
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:86
+msgid "Are you sure you want to delete this account? (type 'y' for yes and 'n' for no): "
+msgstr "Você tem certeza que quer remover está conta? (digite 'y' para sim e 'n' para não): "
+
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:80
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:87
 msgid "No account was found"
 msgstr "Nenhuma conta encontrada"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:80
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:81
 msgid "Account deleted with success"
 msgstr "Conta removida com sucesso"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:81
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:82
 msgid "Account not deleted"
 msgstr "Conta não removida"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:83
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:84
 msgid "Type the account name you want to update: "
 msgstr "Digite o nome da conta que você quer atualizar: "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:84
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:85
 msgid "THIS ACCOUNT WILL BE UPDATED"
 msgstr "ESTA CONTA SERÁ ATUALIZADA"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:85
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:86
 msgid "Are you sure you want to update this account? (type 'y' for yes and 'n' for no): "
 msgstr "Você tem certeza que quer atualizar esta conta? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:87
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:88
 msgid "Account updated with success"
 msgstr "Conta atualizada com sucesso"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:88
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:89
 msgid "Account not updated"
 msgstr "Conta não atualizada"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:89
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:90
 msgid "Update name? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar nome? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:90
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:91
 msgid "Update title? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar título? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:91
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:92
 msgid "Update login? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar login? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:92
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:93
 msgid "Update password? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar senha? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:93
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:94
 msgid "Update site? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar site? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:94
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:95
 msgid "Update description? (type 'y' for yes and 'n' for no): "
 msgstr "Atualizar descrição? (digite 'y' para sim e 'n' para não): "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:95
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:96
 msgid "***Original text>>> "
 msgstr "***Texto original>>>"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:96
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:97
 msgid "New text>>>"
 msgstr "Novo texto>>>"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:98
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:99
 msgid "Name updated with success"
 msgstr "Nome atualizado com sucesso"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:99
-msgid "Type the new password: "
-msgstr "Digite sua senha:"
-
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:100
-msgid "Type the new password again: "
-msgstr "Digite a senha novamente: "
+msgid "Type the new password: "
+msgstr "Digite a nova senha: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:101
+msgid "Type the new password again: "
+msgstr "Digite a nova senha novamente: "
+
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:102
 msgid "Password updated with success"
 msgstr "Senha atualizada com sucesso"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:102
-msgid "Login updated with success"
-msgstr "Login atualizado com sucesso"
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:103
+msgid "Type the new email: "
+msgstr "Digite o novo email: "
 
 #: /home/wendell/Documentos/projetos/savepassword/messages.py:104
+msgid "Email updated with success"
+msgstr "Email atualizado com sucesso"
+
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:106
 msgid "**Type 'CTRL+c' to cancel the current operation"
 msgstr "**Digite 'CTRL+c' para cancelar a operação atual"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:105
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:107
 msgid "--Type 'exit' to finish the program "
 msgstr "--Digite 'exit' para terminar o programa"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:106
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:108
 msgid "--Type 'add user' to add a new user"
 msgstr "--Digite 'add user' para adicionar a novo usuário"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:107
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:109
 msgid "--Type 'update name' to update the user's name. **Login is required"
 msgstr "--Digite 'update name' para atualizar o nome do usuário. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:108
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:110
 msgid "--Type 'update email' to update the user's email. **Login is required "
 msgstr "--Digite 'update email' para atualizar o email do usuário. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:109
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:111
 msgid "--Type 'update password' to update user's password. **Login is required "
 msgstr "--Digite 'update password' para atualizar a senha. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:110
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:112
 msgid "--Type 'login' to login"
 msgstr "--Digite 'login' para logar"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:111
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:113
 msgid "--Type 'logout' to logout"
 msgstr "--Digite 'logout' para deslogar"
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:112
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:114
 msgid "--Type 'add account' to add a new account. **Login is required"
 msgstr "--Digite 'add account' para adicionar um nova conta. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:113
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:115
 msgid "--Type 'update account' to update an account. **Login is required"
 msgstr "--Digite 'update account' para atualizar um conta. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:114
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:116
 msgid "--Type 'delete account' to delete an account. **Login is required"
 msgstr "--Digite 'delete account' para remover uma conta. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:115
-msgid ""
-"--Type 'list accounts {number}' to show the user's accounts. The number is optional and it tells how many accounts are going to show at a time. The default number is 2.\n"
-" Example: 'list accounts' or list accounts 3. **Login is required"
-msgstr ""
-"--Digite 'list accounts {number}' para mostrar as contas do usuário. A opção 'number' é opcional e conta quantas contas serão mostradas por vez. O default é o número 2. \n"
-"Exemplo: 'list accounts' ou 'list accounts 3'. **Login é necessário"
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:117
+msgid "--Type 'list accounts' to list accounts. **Login is required"
+msgstr "--Digite 'list accounts' para listar contas. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:116
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:118
 msgid "--Type 'find accounts' to search accounts. **Login is required"
 msgstr "--Digite 'find accounts' para procurar contas. **Login é necessário "
 
-#: /home/wendell/Documentos/projetos/savepassword/messages.py:118
+#: /home/wendell/Documentos/projetos/savepassword/messages.py:120
 msgid ""
 "Portable Save Passwords \n"
 " --Type 'help' to see the commands"
 msgstr ""
 "Portable Save Passwords \n"
 "--Digite 'help' para ver os comandos"
+
+#, fuzzy
+#~ msgid "--Type 'list accounts. **Login is required"
+#~ msgstr ""
+#~ "--Digite 'find accounts' para procurar contas. **Login é necessário "
+
+#~ msgid ""
+#~ "--Type 'list accounts {number}' to show the user's accounts. The number "
+#~ "is optional and it tells how many accounts are going to show at a time. "
+#~ "The default number is 2.\n"
+#~ " Example: 'list accounts' or list accounts 3. **Login is required"
+#~ msgstr ""
+#~ "--Digite 'list accounts {number}' para mostrar as contas do usuário. A "
+#~ "opção 'number' é opcional e conta quantas contas serão mostradas por vez. "
+#~ "O default é o número 2. \n"
+#~ "Exemplo: 'list accounts' ou 'list accounts 3'. **Login é necessário"
+
+#~ msgid "Login updated with success"
+#~ msgstr "Login atualizado com sucesso"
 
 #~ msgid "Wrong email"
 #~ msgstr "Email errado"

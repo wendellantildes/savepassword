@@ -17,10 +17,10 @@ class verify_session(object):
         
     def __get__(self, instance, owner):
         def wrapper(*args, **kwargs):
-            if instance.logged:
+            if instance.authenticationService.logged:
                 if instance.authenticationService.session_is_expired():
                     instance.authenticationService.logout()
-                    instance.logged = False
+                    instance.authenticationService.logged = False
                     print authentication_expired_session
                     instance.label = ">>>"
             return self.f(instance,*args,**kwargs)
@@ -65,11 +65,11 @@ class Prompt(object):
     def type_words(self,message):
         return raw_input_unicode(message)
 
-    def type_user_email(self,userService):
+    def type_user_email(self,userService,message):
         valid = False
         email = ""
         while(not valid):
-            email = raw_input_unicode(prompt_command_email)
+            email = raw_input_unicode(message)
             if not validate.email(email):
                 print prompt_command_email_error
             else:
@@ -128,7 +128,6 @@ class PromptManager(object):
     def __init__(self):
         self.prompt = Prompt()
         self.authenticationService = AuthenticationService()
-        self.logged = False
         self.invoker = self.buildInvoker()
         self.options = {}
         self.functions = {}
@@ -150,9 +149,9 @@ class PromptManager(object):
         addAccountCommand = AddAccountCommand(self.prompt,self.authenticationService)
         deleteAccountCommand = DeleteAccountCommand(self.prompt,self.authenticationService)
         updateAccountCommand = UpdateAccountCommand(self.prompt,self.authenticationService)
-        findAccountCommand = FindAccountCommand(self.prompt,self.authenticationService)
+        findAccountsCommand = FindAccountsCommand(self.prompt,self.authenticationService)
         listAccountsCommand = ListAccountsCommand(self.prompt,self.authenticationService)
-        invokerMaker.registerAddAccountCommand(addAccountCommand).registerDeleteAccountCommand(deleteAccountCommand).registerUpdateAccountCommand(updateAccountCommand).registerFindAccountCommand(findAccountCommand).registerListAccountsCommand(listAccountsCommand)
+        invokerMaker.registerAddAccountCommand(addAccountCommand).registerDeleteAccountCommand(deleteAccountCommand).registerUpdateAccountCommand(updateAccountCommand).registerFindAccountsCommand(findAccountsCommand).registerListAccountsCommand(listAccountsCommand)
 
         helpCommand = HelpCommand(self.prompt)
         invokerMaker.registerHelpCommand(helpCommand)
@@ -163,12 +162,12 @@ class PromptManager(object):
         self.options["add_user"] = re.compile(r'add(\s)user(\s)*$')
         self.functions["add_user"] = self.add_user
 
-        self.options["add_update_user_password"] = re.compile(r'update(\s)password(\s)*$')
+        self.options["add_update_user_password"] = re.compile(r'update(\s+)password(\s)*$')
         self.functions["add_update_user_password"] = self.update_user_password
-        self.options["add_update_user_name"] = re.compile(r'update(\s)name(\s)*$')
+        self.options["add_update_user_name"] = re.compile(r'update(\s+)name(\s)*$')
         self.functions["add_update_user_name"] = self.update_user_name
 
-        self.options["add_update_user_email"] = re.compile(r'update(\s)email(\s)*$')
+        self.options["add_update_user_email"] = re.compile(r'update(\s+)email(\s)*$')
         self.functions["add_update_user_email"] = self.update_user_email
 
 
@@ -183,14 +182,14 @@ class PromptManager(object):
         self.options["logout"] = re.compile(r'logout(\s)*$')
         self.functions["logout"] = self.logout
 
-        self.options["add_account"] = re.compile(r'add(\s)account(\s)*$')
+        self.options["add_account"] = re.compile(r'add(\s+)account(\s)*$')
         self.functions["add_account"] = self.add_account
             
-        self.options["list_accounts"] = re.compile(r'(list)\s(accounts)\s*$')
+        self.options["list_accounts"] = re.compile(r'(list)\s+(accounts)\s*$')
         self.functions["list_accounts"] = self.list_accounts
             
-        self.options["find_account"] = re.compile(r'(find)\s+(accounts)(?P<arguments>\s*)$')
-        self.functions["find_account"] = self.find_account
+        self.options["find_accounts"] = re.compile(r'(find)\s+(accounts)\s*$')
+        self.functions["find_accounts"] = self.find_accounts
             
         self.options["delete_account"]  = re.compile(r'delete(\s)+account(\s)*$')
         self.functions["delete_account"] = self.delete_account
@@ -240,8 +239,8 @@ class PromptManager(object):
         self.invoker.update_account()
         
     @login_required
-    def find_account(self):
-        self.invoker.find_account()
+    def find_accounts(self):
+        self.invoker.find_accounts()
         
     @login_required
     def list_accounts(self):
@@ -259,7 +258,7 @@ class PromptManager(object):
             except KeyboardInterrupt:
                 self.prompt.print_message("")
 
-                
+    @verify_session            
     def operation(self,typed_line):
         exists = False
         for key in self.options.keys():
