@@ -154,16 +154,11 @@ class AddUserCommand(Command):
 
     def add_user(self):
         name = self.prompt.type_name(prompt_command_name,prompt_command_name_error)
-        valid          = False
         userService = UserService()
         email = self.prompt.type_user_email(userService,prompt_command_email)
         password = self.prompt.type_user_password(prompt_command_password,prompt_command_password_again)
-        try:
-            userService.add(name=name,email=email,password=password)
-            self.prompt.print_message(prompt_command_user_added)
-        except IntegrityError:
-            #verificar qual o erro
-            self.print_message("erro")
+        userService.add(name=name,email=email,password=password)
+        self.prompt.print_message(prompt_command_user_added)
 
 class UpdateUserPasswordCommand(Command):
 
@@ -240,8 +235,8 @@ class LoginCommand(Command):
             self.prompt.print_message(authentication_authenticated)
             self.prompt.print_message(authentication_welcome.format(name=self.authenticationService.user.name))
             info_session =  self.authenticationService.info_session()
-            self.prompt.print_message(authentication_session_begin % info_session[0].strftime("%d/%m/%y %H:%M"))
-            self.prompt.print_message(authentication_session_end % info_session[1].strftime("%d/%m/%y %H:%M"))
+            self.prompt.print_message(authentication_session_begin % info_session[0].strftime("%H:%M %d/%m/%y"))
+            self.prompt.print_message(authentication_session_end % info_session[1].strftime("%H:%M %d/%m/%y"))
             self.prompt.update_authentication_label(email)
         else:
             self.prompt.print_message(self.authenticationService.message_error)
@@ -270,7 +265,7 @@ class AddAccountCommand(object):
         accountService = AccountService()
         valid = False
         while(not valid):
-            name = self.prompt.type_name(prompt_command_account_name,prompt_command_name_error)
+            name = self.prompt.type_word(prompt_command_account_name,prompt_command_account_name_error)
             key = self.authenticationService.typed_password 
             if (accountService.get_account(key,name,self.authenticationService.user)==None):
                 valid = True    
@@ -278,7 +273,7 @@ class AddAccountCommand(object):
                 self.prompt.print_message(prompt_command_account_name_duplicated)
 
         title = self.prompt.type_name(prompt_command_account_title,prompt_command_account_title_error)
-        login = self.prompt.type_name(prompt_command_account_login,prompt_command_account_login_error)
+        login = self.prompt.type_words(prompt_command_account_login)
         password = self.prompt.type_name(prompt_command_account_password,prompt_command_account_password_error)
         site = self.prompt.type_words(prompt_command_account_site)
         description = self.prompt.type_words(prompt_command_account_description)
@@ -316,10 +311,11 @@ class UpdateAccountCommand(object):
         self.authenticationService = authenticationService
 
     def execute(self):
-        name = self.prompt.type_words(prompt_command_update_account)
+        name = self.prompt.type_word(prompt_command_update_account,prompt_command_account_name_error)
         accountService = AccountService()
         key = self.authenticationService.typed_password
         account = accountService.get_account(user_password=key,name=name,user=self.authenticationService.user)
+        valid = False
         if account is not None:
             self.prompt.print_message("")
             self.prompt.print_message(prompt_command_update_account_view)
@@ -329,10 +325,10 @@ class UpdateAccountCommand(object):
                 key = self.authenticationService.typed_password
                 name = None
                 if self.prompt.confirm(prompt_command_update_account_name):
-                    self.print_message(prompt_command_update_account_original_text+security.decrypt(key,account.name))
+                    self.prompt.print_message(prompt_command_update_account_original_text+security.decrypt(key,account.name))
                     self.prompt.print_message("")
                     while(not valid):
-                        name = self.prompt.type_name(prompt_command_account_name,prompt_command_name_error)
+                        name = self.prompt.type_word(prompt_command_account_name,prompt_command_account_name_error)
                         key = self.authenticationService.typed_password 
                         if (accountService.get_account(key,name,self.authenticationService.user)==None):
                             valid = True    
@@ -347,7 +343,7 @@ class UpdateAccountCommand(object):
                 login = None
                 if self.prompt.confirm(prompt_command_update_account_login):
                     self.prompt.print_message(prompt_command_update_account_original_text+security.decrypt(key,account.login)) 
-                    login = self.prompt.type_name(prompt_command_account_login,prompt_command_account_login_error)
+                    login = self.prompt.type_words(prompt_command_account_login)
 
                 password = None
                 if self.prompt.confirm(prompt_command_update_account_password):

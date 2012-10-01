@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 import re
 
 def raw_input_unicode(message):
-    return unicode(raw_input(message),'utf8')
+    return unicode(raw_input(message),'utf-8')
 
 class verify_session(object):
     def __init__(self,f):
@@ -22,7 +22,7 @@ class verify_session(object):
                     instance.authenticationService.logout()
                     instance.authenticationService.logged = False
                     print authentication_expired_session
-                    instance.label = ">>>"
+                    instance.restart_label()
             return self.f(instance,*args,**kwargs)
         return wrapper
 
@@ -41,7 +41,6 @@ class login_required(object):
 class Prompt(object):
     def __init__(self):
         self.label = ">>>"
-        #self.create_options()       
         print head
     
     def prompt(self):
@@ -50,6 +49,9 @@ class Prompt(object):
             
     def update_authentication_label(self,email):
         self.label = "{email}{label}".format(email=email,label=">>>")
+
+    def restart_label(self):
+        self.label = ">>>"
     
     def type_name(self,message,message_error):
         name = ""
@@ -64,6 +66,18 @@ class Prompt(object):
 
     def type_words(self,message):
         return raw_input_unicode(message)
+
+    def type_word(self,message,message_error):
+        name = ""
+        valid = False
+        while(not valid):
+            name = self.type_words(message)
+            if not validate.name_with_spaces(name):
+                print message_error
+            else:
+                valid = True
+        return name.strip()
+
 
     def type_user_email(self,userService,message):
         valid = False
@@ -84,8 +98,8 @@ class Prompt(object):
         count = 0
         valid = False
         while(not valid):
-            password       = unicode(getpass.getpass(password_message),'utf8')
-            password_again = unicode(getpass.getpass(password_message_again),'utf8')
+            password       = unicode(getpass.getpass(password_message),'utf-8')
+            password_again = unicode(getpass.getpass(password_message_again),'utf-8')
             if(password != password_again):
                 count +=1
                 if(count == 3):
@@ -132,7 +146,10 @@ class PromptManager(object):
         self.options = {}
         self.functions = {}
         self.build_options()
-    
+   
+    def restart_label(self):
+        self.prompt.restart_label()
+
     def buildInvoker(self):
         invokerMaker = InvokerMaker()
         addUserCommand = AddUserCommand(self.prompt)
@@ -157,7 +174,7 @@ class PromptManager(object):
         invokerMaker.registerHelpCommand(helpCommand)
        
         return invokerMaker.buildInvoker()
-    
+   
     def build_options(self):
         self.options["add_user"] = re.compile(r'add(\s)user(\s)*$')
         self.functions["add_user"] = self.add_user
@@ -221,7 +238,6 @@ class PromptManager(object):
 
     def logout(self):
         self.invoker.logout()
-        print self.authenticationService.logged
 
     def exit(self):
         self.invoker.exit()

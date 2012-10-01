@@ -1,7 +1,7 @@
 savepassword
 ============
 #In order to run
--python command_line.py
+-python prompt.py
 #Dependencies:
 -pycrypto
 -elixir

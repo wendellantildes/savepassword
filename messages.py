@@ -43,12 +43,12 @@ prompt_command_login_required     = _("You must be logged to perform this operat
 
 prompt_command_logout             = _("Logout done with success")
 
-prompt_command_account_name           = _("Type the account name: ")
+prompt_command_account_name           = _("Type the account name (this name is unique): ")
+prompt_command_account_name_error     = _("Name with spaces")
 prompt_command_account_name_duplicated = _("Name already exists")
 prompt_command_account_title          = _("Type the account title: ")
 prompt_command_account_title_error    = _("Typed title is empty")
-prompt_command_account_login          = _("Type the account login: ")
-prompt_command_account_login_error    = _("Typed login is empty")
+prompt_command_account_login          = _("Type the account login (optional): ")
 prompt_command_account_password       = _("Type the account password: ")
 prompt_command_account_password_error = _("Typed password is empty")
 prompt_command_account_site           = _("Type the account site (optional): ")
@@ -112,4 +112,4 @@ prompt_command_help_delete_account = _("--Type 'delete account' to delete an acc
 prompt_command_help_list_accounts = _("--Type 'list accounts' to list accounts. **Login is required")
 prompt_command_help_find_account = _("--Type 'find accounts' to search accounts. **Login is required")
 
-head = _("Portable Save Passwords \n --Type 'help' to see the commands")
+head = _("Portable Save Passwords Version 0.1 \n --Type 'help' to see the commands")

@@ -13,7 +13,7 @@ from datetime import datetime,timedelta
 
 security = Security()
 metadata.bind = 'sqlite:///accounts.sqlite'
-metadata.bind.encoding = 'utf8'
+metadata.bind.encoding = 'utf-8'
 metadata.bind.echo = False
 setup_all()
 create_all()
@@ -22,7 +22,7 @@ commit = session.commit
 class UserService:
     
     def add(self,name,email,password):
-        user = User(name=name,email=email.encode("utf-8"),password=security.password_hash(password).encode("utf-8"))
+        user = User(name=name,email=email,password=security.password_hash(password))
         commit()
             
     def get_user(self,email):
@@ -123,22 +123,6 @@ class AccountService:
                 found_accounts.append(account)
                 continue
         return found_accounts
-    
-    
-    def find_account_name(self,user_password,name,user):
-        pass
-
-    def find_account_title(self):
-        pass
-        
-    def find_account_login(self):
-        pass
-        
-    def find_account_site(self):
-        pass
-        
-    def find_account_description(self):
-        pass
 
     def delete_account(self,account):
         account.delete()
@@ -168,9 +152,8 @@ class AuthenticationService:
         self.time_login    = None
         self.logged        = False
         self.typed_password =  None
-        self.time_session = 3
+        self.time_session = 1
     
-    #TODO: verificar esse password guardado aqui	
     def authenticate(self,email,password):
         userService = UserService()
         self.user = userService.get_user(email)

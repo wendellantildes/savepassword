@@ -6,18 +6,12 @@ def email(email):
 def name(name):
     return not len(name) == 0
 
-def yes(text):
-    if text == "y":
-        return True
-    else:
-        return False
+def name_with_spaces(name):
+    return re.compile(r'\s*[^\s]+\s*$').match(name)
 
-#validacao basica por enquanto
+def yes(text):
+    return text == "y"
+
 def password(password):
     return not len(password) == 0
 
-# __main__ somente para testes	
-if __name__ == "__main__":
-    while(True):
-        if email(raw_input("Digite um email: ")):
-            break 
