@@ -117,7 +117,7 @@ class Prompt(object):
         return raw_input_unicode(prompt_command_login_email)
 
     def type_password(self):
-        return getpass.getpass(prompt_command_login_password)
+        return unicode(getpass.getpass(prompt_command_login_password),'utf-8')
         
     def print_message(self,message):
         print message

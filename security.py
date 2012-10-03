@@ -11,7 +11,7 @@ class Security:
     def encrypt(self,key,text):
         iv = Random.new().read(AES.block_size)
         encryptor = AES.new(sha256(key).digest(),self.mode,iv)
-        return iv+encryptor.encrypt(text)
+        return iv+encryptor.encrypt(text.encode('utf-8'))
 
     def decrypt(self,key,text):
         decryptor = AES.new(sha256(key).digest(),self.mode, text[:AES.block_size])
@@ -22,10 +22,5 @@ class Security:
         return hashed
     
     def password_matches(self,password,hashed):
-        if bcrypt.hashpw(password,hashed) == hashed:
-            return True
-        else:
-            return False
-
-
+        return  bcrypt.hashpw(password,hashed) == hashed
     
