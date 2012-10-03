@@ -5,7 +5,7 @@ class User(Entity):
 
     email = Field(Unicode(50),unique = True,nullable = False)
     name  = Field(Unicode(50),nullable = False)
-    password = Field(Binary,nullable = False)
+    password = Field(String(60),nullable = False)
     accounts = OneToMany('Account')
     
     def __repr__(self):
